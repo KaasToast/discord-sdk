@@ -3,11 +3,12 @@ import traceback
 from io import StringIO
 from discord import Bot, Message, File
 
-from .views import EvalView
+from .views import CodeView
 
 async def eval(client: Bot, message: Message, *args) -> None:
     code = ' '.join(args).strip()
     if code.startswith('```py\n'): code = code.replace('```py\n', '', 1)
+    elif code.startswith('```python\n'): code = code.replace('```python\n', '', 1)
     elif code.startswith('```\n'): code = code.replace('```\n', '', 1)
     if code[::-1].startswith('```\n'): code = code[::-1].replace('```\n', '', 1)[::-1]
     _code = "\n".join([f"    {line}" for line in code.splitlines()])
@@ -21,4 +22,4 @@ async def eval(client: Bot, message: Message, *args) -> None:
     buffer = StringIO()
     buffer.write(output)
     buffer.seek(0)
-    await message.reply(file=File(buffer, 'output.log'), mention_author=False, view=EvalView(code, client, message))
+    await message.reply(file=File(buffer, 'output.log'), mention_author=False, view=CodeView(client, message, 'eval', *args))
