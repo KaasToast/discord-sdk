@@ -16,7 +16,7 @@ class CodeView(discord.ui.View):
     @discord.ui.button(style=discord.ButtonStyle.green, emoji='🔁')
     async def re_run(self, button: discord.ui.Button, interaction: discord.Interaction) -> None:
         if not await self.client.is_owner(interaction.user):
-            await interaction.response.send_message('This button is only available to the owner of the bot.')
+            await interaction.response.send_message('This button is only available to the owner of the bot.', ephemeral=True)
         else:
             await interaction.response.defer(ephemeral=True)
             if self.command_type == 'eval':
