@@ -1,7 +1,6 @@
 from typing import Tuple, List, Optional, Coroutine
 from discord import Bot, Message
 
-from .shell import shell
 from .eval import eval
 from .loading import load, unload, reload, cogs
 from .shutdown import shutdown
@@ -9,8 +8,6 @@ from .shutdown import shutdown
 CommandTypes = {
     'python': eval,
     'py': eval,
-    'shell': shell,
-    'sh': shell,
     'load': load,
     'ld': load,
     'unload': unload,
